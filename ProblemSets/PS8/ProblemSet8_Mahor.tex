@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{setspace}
+\onehalfspacing
+
+\begin{document}
+	
+	\title{Interpretation of Policy Functions with Costly External Finance}
+	\author{PS8 Write-up}
+	\date{}
+	\maketitle
+	
+	\section{Optimal Capital Policy $K'(K)$ for Low vs. High Productivity}
+	
+	\begin{figure}[h!]
+		\centering
+		% >>> replace with your actual filename
+		\includegraphics[width=0.75\textwidth]{Kprime_policy.png}
+		\caption{Optimal $K'(K)$ for low and high productivity $A$.}
+		\label{fig:Kprime}
+	\end{figure}
+	
+	Figure~\ref{fig:Kprime} plots the optimal next-period capital $K'$ as a function of current capital $K$ for a low productivity state and a high productivity state.  
+	The dashed 45-degree line represents the benchmark $K' = K$, where the firm keeps its capital stock constant.  
+	For low productivity (orange line), the policy lies below the 45-degree line for most of the grid, especially at larger $K$, indicating that low-$A$ firms eventually prefer to shrink their capital stock rather than keep expanding.  
+	For high productivity (green line), $K'(K)$ lies well above the 45-degree line for small and medium $K$, so high-$A$ firms invest aggressively and grow fast when they are small.  
+	As $K$ becomes large, the green line gradually flattens and approaches the 45-degree line, showing that even high-productivity firms reach a size where the marginal value of extra capital falls and further expansion is limited.
+	
+	\clearpage
+	
+	\section{External Finance Decision by $K$ for Low vs. High Productivity}
+	
+	\begin{figure}[h!]
+		\centering
+		% >>> replace with your actual filename
+		\includegraphics[width=0.75\textwidth]{ext_finance_policy.png}
+		\caption{External finance use by capital $K$ for low and high productivity $A$.}
+		\label{fig:ext}
+	\end{figure}
+	
+	Figure~\ref{fig:ext} reports, for each level of current capital $K$, whether the firm uses external finance (value 1) or not (value 0).  
+	For low productivity (blue line), the firm relies on external funds for a wide range of capital levels, roughly from very small $K$ up to a middle range of the grid, and then stops using external finance once $K$ is sufficiently high.  
+	This pattern is consistent with low-$A$ firms being short of internal funds and needing to borrow when they try to grow, while larger low-$A$ firms can eventually finance investment internally.  
+	For high productivity (orange line), the firm almost never uses external finance: strong profits allow it to pay for investment entirely out of current cash flow.  
+	Overall, the figure highlights the key mechanism of the model: external finance is mainly used by low-productivity, financially constrained firms, not by high-productivity firms.
+	
+	\clearpage
+	
+	\section{Optimal Investment Rate $i(K)$ for Low vs. High Productivity}
+	
+	\begin{figure}[h!]
+		\centering
+		% >>> replace with your actual filename
+		\includegraphics[width=0.75\textwidth]{investment_rate_policy.png}
+		\caption{Optimal investment rate $i(K) = I/K$ for low and high productivity $A$.}
+		\label{fig:inv}
+	\end{figure}
+	
+	Figure~\ref{fig:inv} shows the optimal investment rate $i(K) = I/K$ as a function of current capital $K$ for low and high productivity states.  
+	For high productivity (orange line), the firm chooses very high investment rates at small $K$ (around $0.4$--$0.6$ of the capital stock), which implies rapid growth when the firm is both small and productive; as $K$ rises, the investment rate declines but remains positive, so the firm continues to grow, albeit at a slower pace.  
+	For low productivity (blue line), the investment rate is positive at small $K$ but falls much more quickly as the firm becomes larger, eventually crossing zero and becoming negative, which corresponds to disinvestment or letting capital depreciate.  
+	The horizontal dashed line at $i = 0$ marks the boundary between expansion and contraction: being above it means net investment, being below it means shrinking the capital stock.  
+	Taken together, the figure shows that productivity and size jointly shape investment behavior: high-$A$ firms invest aggressively when small and taper off as they grow, whereas low-$A$ firms invest modestly when small but prefer to run down their capital when they are already large.
+	
+	\clearpage
+	
+	\section{Main Results}
+	
+	\begin{table}[!ht]\centering
+		\caption{Structural estimates and moments (Table 3)}
+		\label{tab:ce03_table3}
+		\vspace{0.5em}
+		\begin{tabular}{lccccc}
+			\multicolumn{6}{c}{\textbf{(a) Structural parameter estimates: costly external finance } $(\Theta)$} \\ \hline
+			Model & $\alpha$ & $\gamma$ & $\rho$ & $\sigma$ & $\tilde{\phi}_0$ \\ \hline
+			Costly & 0.6956 & 0.1331 & 0.0976 & 0.8932 & 0.0000 \\
+			\hline
+		\end{tabular}
+		\vspace{0.8em}
+		\begin{tabular}{lccccccc}
+			\multicolumn{8}{c}{\textbf{(b) Moments by model}} \\ \hline
+			Model & $a_1$ & $a_2$ & $\text{sc}(I/K)$ & $\text{std}(\pi/K)$ & $\bar{q}$ & \text{Ext. frac.} & $J(\Theta)$ \\ \hline
+			Moments & 0.0300 & 0.2400 & 0.4000 & 0.2500 & 3.0000 & 0.2500 & n.a. \\
+			Costly & 0.0626 & 0.1912 & -0.1461 & 0.3327 & 2.8782 & 0.0299 & 145475.69 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	
+\end{document}
