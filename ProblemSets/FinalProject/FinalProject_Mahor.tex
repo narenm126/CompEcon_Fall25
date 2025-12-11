@@ -1,0 +1,209 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\title{ECON 833 Final Project \\ \large A Job Search Model with Financial Income}
+\author{Narender Mahor}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Introduction}
+	This model is a variant of the McCall job search model where the individual has an additional source of income -- stock market earnings. The individual is searching for a stable job while also investing in the stock market. When he is unemployed, he has plenty of time to watch the market, read financial news, and actively trade. In each period he receives unemployment insurance $b$, and on top of that he earns a financial income $\varepsilon_t$ from his stock portfolio, which can be positive (a good return) or negative (a loss). If he accepts a job offer at wage $w$, his situation changes: he now gets the wage every period, but because he is busy working he cannot follow the stock market as closely as before. To capture this, the model assumes that his financial income is reduced to $\phi \varepsilon_t$ with $0 < \phi < 1$, meaning that only a fraction of his potential stock-market earnings (or losses) shows up when he is employed. The worker is risk-neutral and in each period he decides if he should stay unemployed and focus more on trading plus unemployment benefits, or accept the job and get a stable wage but less time for the stock market.
+	
+	\section*{Environment}
+	\label{sec:model}
+	\begin{itemize}
+		\item Time is discrete, indexed by $t = 0,1,2,\dots$.
+		\item At the beginning of each period, an unemployed worker receives a wage offer $w$ drawn from a distribution $F(w)$, independently across periods.
+		\item In addition, the worker receives a realization of financial income $\varepsilon_t$, drawn from another distribution $G(\varepsilon)$, also i.i.d.\ over time.
+		\item The shocks $w_t$ and $\varepsilon_t$ are independent of each other.
+		\item The worker is risk-neutral, discounts the future using $0 < \beta < 1$, and seeks to maximize expected lifetime income:
+		\[
+		\mathbb{E}\left[ \sum_{t=0}^{\infty} \beta^t y_t \right].
+		\]
+	\end{itemize}
+	
+	\subsection*{Per-period Income}
+	
+	Let $b$ denote the unemployment benefit.  
+	If the worker is unemployed in period $t$, income is:
+	\[
+	y_t = b + \varepsilon_t.
+	\]
+	
+	If the worker has accepted a job at wage $w$, he earns higher labor income but has less time to devote to stock market, hence lower financial income.  
+	This is modeled by a parameter $0 < \phi < 1$, so that:
+	\[
+	y_t = w + \phi \varepsilon_t \quad \text{if employed at wage } w.
+	\]
+	
+	Once a job at wage $w$ is accepted, the worker is employed forever at that wage; no job separation or on-the-job search is allowed.
+	
+	\subsection*{Value Functions}
+	
+	Let $U$ be the value of being unemployed at the start of a period, before observing the current shocks.  
+	Let $V(w)$ be the value of being employed at wage $w$.
+	
+	\subsubsection*{Employed Value $V(w)$}
+	
+	If employed at wage $w$, per-period income is $w + \phi \varepsilon_t$.  
+	Taking expectations over $\varepsilon_t$,
+	\[
+	V(w) = \mathbb{E}_\varepsilon[w + \phi \varepsilon + \beta V(w)]
+	= w + \phi \mu_\varepsilon + \beta V(w),
+	\]
+	where $\mu_\varepsilon = \mathbb{E}[\varepsilon]$.  
+	Solving,
+	\begin{equation}
+		\label{eq:Vw}
+		V(w) = \frac{w + \phi\mu_\varepsilon}{1-\beta}.
+	\end{equation}
+	
+	\subsubsection*{Unemployed Value $U$}
+	
+	When unemployed, the worker observes $(w,\varepsilon)$ and then chooses whether to accept the job or stay unemployed.  
+	
+	If he rejects:
+	\[
+	b + \varepsilon + \beta U.
+	\]
+	
+	If he accepts:
+	\[
+	w + \phi\varepsilon + \beta V(w).
+	\]
+	
+	Thus the Bellman equation for $U$ is:
+	\begin{equation}
+		\label{eq:U_bellman}
+		U = \mathbb{E}_{w,\varepsilon}\Big[
+		\max\big\{
+		b + \varepsilon + \beta U,\;
+		w + \phi\varepsilon + \beta V(w)
+		\big\}
+		\Big].
+	\end{equation}
+	
+	\subsection*{Reservation Wage $w^*$ and Financial Income $\varepsilon$}
+	
+	The worker accepts an offered wage $w$ when:
+	\[
+	w + \phi\varepsilon + \beta V(w)
+	\ge
+	b + \varepsilon + \beta U.
+	\]
+	
+	Define $w^*(\varepsilon; b)$ as the reservation wage that makes him indifferent,
+	given a level of unemployment benefit $b$.   
+	Using \eqref{eq:Vw}:
+	\[
+	w^* + \phi\varepsilon + \beta\frac{w^* + \phi\mu_\varepsilon}{1-\beta}
+	= b + \varepsilon + \beta U.
+	\]
+	
+	Collecting terms:
+	\[
+	\frac{w^*}{1-\beta} + \phi\varepsilon + \beta\frac{\phi\mu_\varepsilon}{1-\beta}
+	= b + \varepsilon + \beta U,
+	\]
+	
+	\[
+	w^*(\varepsilon)
+	= (1-\beta)\left[
+	b + (1-\phi)\varepsilon + \beta U - \beta\frac{\phi\mu_\varepsilon}{1-\beta}
+	\right].
+	\]
+	
+	Holding b fixed, taking the derivative with respect to $\varepsilon$:
+	\[
+	\frac{\partial w^*(\varepsilon)}{\partial \varepsilon}
+	= (1-\beta)(1-\phi) > 0.
+	\]
+	
+	The reservation wage is strictly increasing in financial income $\varepsilon$.  
+	A worker with high financial income can afford to be more selective and accept only high-paying jobs.
+	
+		
+	
+	\section*{Findings \& Conclusion}
+	
+	In this section I present the main findings from solving the dynamic programming problem of the individual using value function iteration (VFI). First, I describe what happens during the iterations of the value function and how the algorithm converges to a stable decision rule. Then I discuss the implied reservation wage, the minimum wage offer the individual is willing to accept, given unemployment insurance and income from the stock market. Finally, I examine how this reservation wage changes with the level of financial income and what this tells us about the role of stock market earnings in the worker’s job acceptance decision. \\
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{convergence.png}
+		\caption{Convergence of the value function.}
+		\label{fig:convg}
+	\end{figure}
+	
+	In Figure \ref{fig:convg}, different iterations (orange, green, red, purple) show how the algorithm slowly builds up the shape of the value function. The first iteration (orange) is almost just the “accept forever” value and ignores the option to keep searching, so it is simply linear. As we iterate, the algorithm adds more and more value from the possibility of future better offers, so the value for low wages goes up and becomes flat at the search value. After 3–4 iterations the lines basically lie on top of each other and on the brown “True V”, which means the Bellman equation has reached its fixed point. This convergence means that the dynamic programming model is internally consistent: the value of being unemployed and the decision rule “accept if $w$ is above the reservation wage, otherwise reject and keep searching (and trade)” are stable over time.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.1\textwidth]{value_policy.png}
+		\caption{Value function and acceptance policy.}
+		\label{fig:valuef}
+	\end{figure}
+	
+	\clearpage
+	
+	In Figure \ref{fig:valuef}, the left graph shows how valuable it is for the worker to receive a job offer with wage $w$. For low wages, the blue line is almost flat. This means that, for these wages, the worker basically gets the same value, because he always rejects such offers and stays unemployed. His value then comes from the unemployment benefit plus the chance to search again and trade in the stock market next period. At a certain point (around wage 76), the line bends upward and becomes steeper and linear. For wages above this point, the value increases one-for-one with the wage. Here the worker accepts the job, and the value is just the present value of a stable wage income (plus reduced stock-market income when employed). So the kink in the value function marks the wage where the decision switches from “keep searching and trade more” to “take the job and earn the wage”. \\[0.5em]
+	The right graph shows the worker’s decision rule for each wage. The blue line is 0 for low wages: this means “do not accept” (stay unemployed). At wage 76.49 (the red dashed line), the policy jumps from 0 to 1. This is the reservation wage. For all wages to the right of the red line, the policy is 1, meaning “accept the job”. If the offer is below 76.49, the worker prefers to stay on unemployment insurance and focus more on stock-market income. If the offer is 76.49 or higher, he is willing to give up some trading time and take the job.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{w_star.png}
+		\caption{Analytic reservation wage and financial income.}
+		\label{fig:wstar}
+	\end{figure}
+	
+	Figure \ref{fig:wstar} shows how the reservation wage changes as financial income changes. For low and moderate values of $\varepsilon$ the reservation wage is around 75–76. This is the “baseline” reservation wage when stock-market income is not very large. As $\varepsilon$ becomes very positive, the reservation wage increases sharply. In this region the worker is doing very well in the stock market. Because he earns a lot while unemployed, he becomes more choosy: he will only accept a job if the wage is much higher. In terms of the model, high $\varepsilon$ raises the value of unemployment (he can trade more), so the job must pay more to compensate for the loss of trading time and the factor $\phi$. So, better financial income makes the worker more selective, especially when gains are large.
+	
+	\clearpage
+	
+	\subsection*{Numerical Solution Using Value Function Iteration}
+	
+	To solve the model numerically, I discretize the supports of $w$ and $\varepsilon$ using grids  
+	$\{w_i\}_{i=1}^{N_w}$ and $\{\varepsilon_j\}_{j=1}^{N_\varepsilon}$ with probabilities $p_i$ and $q_j$.  
+	
+	Then the Bellman operator for $U$ is:
+	\[
+	\mathcal{T}(U)
+	= \sum_{i=1}^{N_w}\sum_{j=1}^{N_\varepsilon} p_i q_j\;
+	\max\left\{
+	b + \varepsilon_j + \beta U,\;
+	w_i + \phi\varepsilon_j + \beta V(w_i)
+	\right\}.
+	\]
+	
+	Value function iteration solves for the fixed point $U = \mathcal{T}(U)$.  
+	Once $U$ is computed, the reservation wage function $w^*(\varepsilon_j)$ is obtained numerically or by the closed-form expression above.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{w_star1.png}
+		\caption{Numerical reservation wage as a function of $\varepsilon$.}
+		\label{fig:wstar1}
+	\end{figure}
+	
+	Figure \ref{fig:wstar1} shows the reservation wage as a function of $\varepsilon$. Because I use a finite wage grid, the numerical reservation wage appears as a step function. The line is not perfectly smooth; it moves up in small steps, since we jump from one grid wage to the next. But it is clearly monotone increasing: as the financial income $\varepsilon$ goes up, the reservation wage $w^*(\varepsilon)$ also rises. The vertical scale in the figure is zoomed in (around $76.1$--$76.7$), so we can see that even with moderate financial income the reservation wage increases a bit. This matches the theory: in the analytic model the slope of
+	$w^*(\varepsilon)$ is proportional to $(1-\beta)(1-\phi)$, so the effect is positive but not very
+	large when $(1-\beta)$ and $(1-\phi)$ are small.
+	
+	\subsection*{Main Takeaway}
+	When the worker earns more from the stock market while unemployed, he can afford to wait for a better job. So he raises his reservation wage and only accepts very well-paid offers. When his financial income is low or negative, he is less picky and is willing to accept lower wages. Besides financial income, the unemployment benefit $b$ also affects the reservation wage. A higher $b$ raises the value of staying unemployed, because the worker can wait longer while still receiving income. As a result, the worker becomes more selective and the whole reservation-wage schedule $w^*(\varepsilon; b)$ shifts up when $b$ increases. However, in this entire analysis, I am holding the unemployment benefit fixed and assuming that this is not sufficient alone for the individual and he is relying more on financial income.
+	
+	
+\end{document}
