@@ -1,6 +1,7 @@
 # make_figures.py
 # Generate figures/graphs using results from solve_model.py
 
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt

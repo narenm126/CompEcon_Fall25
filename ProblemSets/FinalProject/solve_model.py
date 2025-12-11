@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import time
 
+
 # ----------------------------
 # Wage grid
 # ----------------------------
